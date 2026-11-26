@@ -1,7 +1,10 @@
+import os
 import sqlite3
 
 def conectar():
+    os.makedirs("database", exist_ok=True)
     conexion = sqlite3.connect("database/clinica.db")
+    conexion.execute("PRAGMA foreign_keys = ON")
     return conexion
 
 def crear_tablas():
@@ -12,7 +15,8 @@ def crear_tablas():
     CREATE TABLE IF NOT EXISTS pacientes(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_completo TEXT NOT NULL,
-    edad INTEGER,sexo TEXT,
+    edad INTEGER,
+    sexo TEXT,
     telefono TEXT,
     correo_electronico TEXT,
     direccion TEXT)""")
