@@ -3,6 +3,8 @@ from tkinter import ttk
 from database import crear_tablas
 from pacientes import PantallaPacientes
 from medicos import PantallaMedicos
+from citas import PantallaCitas
+from reportes import PantallaReportes
 
 def main():
     crear_tablas()
@@ -21,10 +23,13 @@ def main():
     estilo.configure("Treeview.Heading", background="#E8F6F3", foreground="black")
     estilo.map("Treeview", background=[("selected", "#cde9fd")], foreground=[("selected", "black")])
     pestanas = ttk.Notebook(ventana)
-    pestanas.pack(fill="both", expand=False)
+    pestanas.pack(fill="both", expand=True)
     pestanas.add(PantallaPacientes(pestanas), text="Pacientes")
     pestanas.add(PantallaMedicos(pestanas), text="Médicos")
+    pestanas.add(PantallaCitas(pestanas), text="Citas")
+    pestanas.add(PantallaReportes(pestanas), text="Reportes")
     ventana.mainloop()
+
 
 if __name__ == "__main__":
     main()
