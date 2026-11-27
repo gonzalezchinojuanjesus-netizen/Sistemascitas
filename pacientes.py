@@ -2,6 +2,7 @@ import sqlite3
 import tkinter as tk
 from tkinter import ttk, messagebox
 from database import conectar
+
 def agregar_paciente(nombre_completo, edad, sexo, telefono, correo_electronico, direccion):
     conexion = conectar()
     cursor = conexion.cursor()
@@ -15,7 +16,6 @@ def agregar_paciente(nombre_completo, edad, sexo, telefono, correo_electronico, 
     conexion.commit()
     conexion.close()
 
-
 def listar_pacientes():
     conexion = conectar()
     cursor = conexion.cursor()
@@ -23,7 +23,6 @@ def listar_pacientes():
     pacientes = cursor.fetchall()
     conexion.close()
     return pacientes
-
 
 def buscar_pacientes(texto):
     conexion = conectar()
@@ -35,7 +34,6 @@ def buscar_pacientes(texto):
     pacientes = cursor.fetchall()
     conexion.close()
     return pacientes
-
 
 def actualizar_paciente(id_paciente, nombre_completo, edad, sexo, telefono, correo_electronico, direccion):
     conexion = conectar()
@@ -51,7 +49,6 @@ def actualizar_paciente(id_paciente, nombre_completo, edad, sexo, telefono, corr
     )
     conexion.commit()
     conexion.close()
-
 
 def eliminar_paciente(id_paciente):
     """Devuelve True si se eliminó, False si el paciente tiene citas registradas."""
@@ -75,18 +72,18 @@ class PantallaPacientes(tk.Frame):
         self.cargar_pacientes()
 
     def crear_formulario(self):
-        marco = tk.LabelFrame(self, text="Datos del paciente", bg="#E8F6F3", padx=10, pady=10)
+        marco = tk.LabelFrame(self, text="Datos del paciente", bg="#E8F6F3", fg="black", padx=10, pady=10)
         marco.pack(fill="x", padx=10, pady=10)
 
         etiquetas = ["Nombre completo", "Edad", "Sexo", "Teléfono", "Correo electrónico", "Dirección"]
         self.campos = {}
         for i, texto in enumerate(etiquetas):
             fila, col = i // 2, (i % 2) * 2
-            tk.Label(marco, text=texto, bg="#E8F6F3").grid(row=fila, column=col, sticky="e", padx=5, pady=5)
+            tk.Label(marco, text=texto, bg="#E8F6F3", fg="black").grid(row=fila, column=col, sticky="e", padx=5, pady=5)
             if texto == "Sexo":
                 entrada = ttk.Combobox(marco, values=["M", "F"], state="readonly", width=27)
             else:
-                entrada = tk.Entry(marco, width=30)
+                entrada = tk.Entry(marco, width=30, bg="white", fg="black", insertbackground="black")
             entrada.grid(row=fila, column=col + 1, padx=5, pady=5)
             self.campos[texto] = entrada
 
@@ -100,8 +97,8 @@ class PantallaPacientes(tk.Frame):
     def crear_tabla(self):
         buscador = tk.Frame(self, bg="#E8F6F3")
         buscador.pack(fill="x", padx=10)
-        tk.Label(buscador, text="Buscar por nombre:", bg="#E8F6F3").pack(side="left")
-        self.entrada_busqueda = tk.Entry(buscador, width=30)
+        tk.Label(buscador, text="Buscar por nombre:", bg="#E8F6F3", fg="black").pack(side="left")
+        self.entrada_busqueda = tk.Entry(buscador, width=30, bg="white", fg="black", insertbackground="black")
         self.entrada_busqueda.pack(side="left", padx=5)
         self.entrada_busqueda.bind("<KeyRelease>", lambda e: self.cargar_pacientes())
 

@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from database import conectar
 
-
 def agregar_medico(nombre_completo, especialidad, consultorio, telefono):
     conexion = conectar()
     cursor = conexion.cursor()
@@ -17,7 +16,6 @@ def agregar_medico(nombre_completo, especialidad, consultorio, telefono):
     conexion.commit()
     conexion.close()
 
-
 def listar_medicos():
     conexion = conectar()
     cursor = conexion.cursor()
@@ -25,7 +23,6 @@ def listar_medicos():
     medicos = cursor.fetchall()
     conexion.close()
     return medicos
-
 
 def buscar_medicos(texto):
     conexion = conectar()
@@ -42,7 +39,6 @@ def buscar_medicos(texto):
     conexion.close()
     return medicos
 
-
 def actualizar_medico(id_medico, nombre_completo, especialidad, consultorio, telefono):
     conexion = conectar()
     cursor = conexion.cursor()
@@ -57,7 +53,6 @@ def actualizar_medico(id_medico, nombre_completo, especialidad, consultorio, tel
     conexion.commit()
     conexion.close()
 
-
 def eliminar_medico(id_medico):
     """Devuelve True si se eliminó, False si el médico tiene citas registradas."""
     conexion = conectar()
@@ -71,7 +66,6 @@ def eliminar_medico(id_medico):
     finally:
         conexion.close()
 
-
 class PantallaMedicos(tk.Frame):
     def __init__(self, padre):
         super().__init__(padre, bg="#E8F6F3")
@@ -82,15 +76,15 @@ class PantallaMedicos(tk.Frame):
         self.cargar_medicos()
 
     def crear_formulario(self):
-        marco = tk.LabelFrame(self, text="Datos del médico", bg="#E8F6F3", padx=10, pady=10)
+        marco = tk.LabelFrame(self, text="Datos del médico", bg="#E8F6F3", fg="black", padx=10, pady=10)
         marco.pack(fill="x", padx=10, pady=10)
 
         etiquetas = ["Nombre completo", "Especialidad", "Consultorio", "Teléfono"]
         self.campos = {}
         for i, texto in enumerate(etiquetas):
             fila, col = i // 2, (i % 2) * 2
-            tk.Label(marco, text=texto, bg="#E8F6F3").grid(row=fila, column=col, sticky="e", padx=5, pady=5)
-            entrada = tk.Entry(marco, width=30)
+            tk.Label(marco, text=texto, bg="#E8F6F3", fg="black").grid(row=fila, column=col, sticky="e", padx=5, pady=5)
+            entrada = tk.Entry(marco, width=30, bg="white", fg="black", insertbackground="black")
             entrada.grid(row=fila, column=col + 1, padx=5, pady=5)
             self.campos[texto] = entrada
 
@@ -104,8 +98,8 @@ class PantallaMedicos(tk.Frame):
     def crear_tabla(self):
         buscador = tk.Frame(self, bg="#E8F6F3")
         buscador.pack(fill="x", padx=10)
-        tk.Label(buscador, text="Buscar por nombre o especialidad:", bg="#E8F6F3").pack(side="left")
-        self.entrada_busqueda = tk.Entry(buscador, width=30)
+        tk.Label(buscador, text="Buscar por nombre o especialidad:", bg="#E8F6F3", fg="black").pack(side="left")
+        self.entrada_busqueda = tk.Entry(buscador, width=30, bg="white", fg="black", insertbackground="black")
         self.entrada_busqueda.pack(side="left", padx=5)
         self.entrada_busqueda.bind("<KeyRelease>", lambda e: self.cargar_medicos())
 

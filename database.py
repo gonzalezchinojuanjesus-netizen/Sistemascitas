@@ -1,13 +1,11 @@
 import os
 import sqlite3
 
-
 def conectar():
     os.makedirs("database", exist_ok=True)
     conexion = sqlite3.connect("database/clinica.db")
     conexion.execute("PRAGMA foreign_keys = ON")
     return conexion
-
 
 def crear_tablas():
     conexion = conectar()
